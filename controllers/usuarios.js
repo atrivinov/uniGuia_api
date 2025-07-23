@@ -36,6 +36,7 @@ class usuariosController {
       res.status(201).json(data);
     } catch (error) {
       res.status(500).send(error);
+      console.log(error)
     }
   }
 

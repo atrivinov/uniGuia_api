@@ -8,7 +8,6 @@ class universidadesController {
       { nombre,
         carreras,
         costo,
-        logo,
         descripcion,
         rating,
         website,
@@ -17,7 +16,7 @@ class universidadesController {
         departamento,
         pais } } =  req;
     try {
-      const data = await universidadesModel.create({ nombre, carreras, costo, logo, descripcion, rating, website, modalidad, ciudad, departamento, pais });
+      const data = await universidadesModel.create({ nombre, carreras, costo, descripcion, rating, website, modalidad, ciudad, departamento, pais });
       res.status(201).json(data);
     } catch (error) {
       res.status(500).send(error);
@@ -48,7 +47,6 @@ class universidadesController {
       { nombre,
         carreras,
         costo,
-        logo,
         descripcion,
         rating,
         website,
@@ -58,7 +56,7 @@ class universidadesController {
         pais },
       params: { id } } =  req;
     try {
-      const data = universidadesModel.updateOne(id, { nombre, carreras, costo, logo, descripcion, rating, website, modalidad, ciudad, departamento, pais });
+      const data = universidadesModel.updateOne(id, { nombre, carreras, costo, descripcion, rating, website, modalidad, ciudad, departamento, pais });
       res.status(200).json(data);
     } catch (error) {
       res.status(500).send(error);

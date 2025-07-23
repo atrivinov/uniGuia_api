@@ -1,32 +1,27 @@
-import { ObjectId } from "mongodb";
-import dbClient from "../config/dbClient.js";
+import mongoose from 'mongoose';
+import Pensum from '../schemas/pensums.js'
 
 class pensumsModel {
   constructor(){}
 
   async create(pensum) {
-    const pensumsCollection = dbClient.db.collection('pensums');
-    return await pensumsCollection.insertOne(pensum);
+    return await Pensum.create(pensum);
   }
 
   async getAll() {
-    const pensumsCollection = dbClient.db.collection('pensums');
-    return await pensumsCollection.find({}).toArray();
+    return await Pensum.find();
   }
 
   async getOne(id) {
-    const pensumsCollection = dbClient.db.collection('pensums');
-    return await pensumsCollection.findOne({ _id: new ObjectId(id) });
+    return await Pensum.findById(id);
   }
 
   async updateOne(id, pensum) {
-    const pensumsCollection = dbClient.db.collection('pensums');
-    return await pensumsCollection.updateOne({ _id: new ObjectId(id) }, { $set: pensum });
+    return await Pensum.findOneAndUpdate({ _id: new mongoose.Types.ObjectId(id) }, pensum, { new: true });
   }
   
   async deleteOne(id) {
-    const pensumsCollection = dbClient.db.collection('pensums');
-    return await pensumsCollection.deleteOne({ _id: new ObjectId(id) });
+    return await Pensum.findOneAndDelete({ _id: new mongoose.Types.ObjectId(id) });
   }
 }
 

@@ -1,32 +1,27 @@
-import { ObjectId } from "mongodb";
-import dbClient from "../config/dbClient.js";
+import mongoose from 'mongoose';
+import Usuario from '../schemas/usuarios.js'
 
 class usuariosModel {
   constructor(){}
 
   async create(usuario) {
-    const usuariosCollection = dbClient.db.collection('usuarios');
-    return await usuariosCollection.insertOne(usuario);
+    return await Usuario.create(usuario);
   }
 
   async getAll() {
-    const usuariosCollection = dbClient.db.collection('usuarios');
-    return await usuariosCollection.find({}).toArray();
+    return await Usuario.find();
   }
 
   async getOne(id) {
-    const usuariosCollection = dbClient.db.collection('usuarios');
-    return await usuariosCollection.findOne({ _id: new ObjectId(id) });
+    return await Usuario.findById(id);
   }
 
   async updateOne(id, usuario) {
-    const usuariosCollection = dbClient.db.collection('usuarios');
-    return await usuariosCollection.updateOne({ _id: new ObjectId(id) }, { $set: usuario });
+    return await Usuario.findOneAndUpdate({ _id: new mongoose.Types.ObjectId(id) }, usuario, { new: true });
   }
   
   async deleteOne(id) {
-    const usuariosCollection = dbClient.db.collection('usuarios');
-    return await usuariosCollection.deleteOne({ _id: new ObjectId(id) });
+    return await Usuario.findOneAndDelete({ _id: new mongoose.Types.ObjectId(id) });
   }
 }
 

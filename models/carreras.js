@@ -1,32 +1,27 @@
-import { ObjectId } from "mongodb";
-import dbClient from "../config/dbClient.js";
+import mongoose from 'mongoose';
+import Carrera from '../schemas/carreras.js'
 
 class carrerasModel {
     constructor(){}
 
     async create(carrera) {
-      const carrerasCollection = dbClient.db.collection('carreras');
-      return await carrerasCollection.insertOne(carrera);
+      return await Carrera.create(carrera);
     }
 
     async getAll() {
-      const carrerasCollection = dbClient.db.collection('carreras');
-      return await carrerasCollection.find({}).toArray();
+      return await Carrera.find();
     }
 
     async getOne(id) {
-      const carrerasCollection = dbClient.db.collection('carreras');
-      return await carrerasCollection.findOne({ _id: new ObjectId(id) });
+      return await Carrera.findById(id);
     }
 
     async updateOne(id, carrera) {
-      const carrerasCollection = dbClient.db.collection('carreras');
-      return await carrerasCollection.updateOne({ _id: new ObjectId(id) }, { $set: carrera });
+      return await Carrera.findOneAndUpdate({ _id: new mongoose.Types.ObjectId(id) }, carrera, { new: true });
     }
     
     async deleteOne(id) {
-      const carrerasCollection = dbClient.db.collection('carreras');
-      return await carrerasCollection.deleteOne({ _id: new ObjectId(id) });
+      return await Carrera.findOneAndDelete({ _id: new mongoose.Types.ObjectId(id) });
     }
 }
 

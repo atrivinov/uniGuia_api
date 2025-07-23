@@ -4,9 +4,9 @@ class pensumsController {
   constructor() {}
 
   async createPensum(req, res) {
-    const { body: { nombre, año, semestres } } =  req;
+    const { year, idCarrera, creditos, semestres } = req.body;
     try {
-      const data = await pensumsModel.create({ nombre, año, semestres });
+      const data = await pensumsModel.create({ year, idCarrera, creditos, semestres });
       res.status(201).json(data);
     } catch (error) {
       res.status(500).send(error);
@@ -33,9 +33,9 @@ class pensumsController {
   }
 
   async updatePensumById(req, res) {
-    const { body: { nombre, año, semestres }, params: { id } } =  req;
+    const { body: { year, idCarrera, creditos, semestres }, params: { id } } =  req;
     try {
-      const data = pensumsModel.updateOne(id, { nombre, año, semestres });
+      const data = pensumsModel.updateOne(id, { year, idCarrera, creditos, semestres });
       res.status(200).json(data);
     } catch (error) {
       res.status(500).send(error);

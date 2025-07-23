@@ -1,32 +1,27 @@
-import { ObjectId } from "mongodb";
-import dbClient from "../config/dbClient.js";
+import mongoose from 'mongoose';
+import Universidad from '../schemas/universidades.js'
 
 class universidadesModel {
   constructor(){}
 
   async create(universidad) {
-    const universidadesCollection = dbClient.db.collection('universidades');
-    return await universidadesCollection.insertOne(universidad);
+    return await Universidad.create(universidad);
   }
 
   async getAll() {
-    const universidadesCollection = dbClient.db.collection('universidades');
-    return await universidadesCollection.find({}).toArray();
+    return await Universidad.find();
   }
 
   async getOne(id) {
-    const universidadesCollection = dbClient.db.collection('universidades');
-    return await universidadesCollection.findOne({ _id: new ObjectId(id) });
+    return await Universidad.findById(id);
   }
 
   async updateOne(id, universidad) {
-    const universidadesCollection = dbClient.db.collection('universidades');
-    return await universidadesCollection.updateOne({ _id: new ObjectId(id) }, { $set: universidad });
+    return await Universidad.findOneAndUpdate({ _id: new mongoose.Types.ObjectId(id) }, universidad, { new: true });
   }
   
   async deleteOne(id) {
-    const universidadesCollection = dbClient.db.collection('universidades');
-    return await universidadesCollection.deleteOne({ _id: new ObjectId(id) });
+    return await Universidad.findOneAndDelete({ _id: new mongoose.Types.ObjectId(id) });
   }
 }
 
