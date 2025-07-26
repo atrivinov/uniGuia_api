@@ -5,18 +5,17 @@ class universidadesController {
 
   async createUniversidad(req, res) {
     const { body:
-      { nombre,
-        carreras,
-        costo,
-        descripcion,
+      { name,
+        logo,
+        description,
+        location,
         rating,
+        programs,
+        tuitionRange,
         website,
-        modalidad,
-        ciudad,
-        departamento,
-        pais } } =  req;
+        modality } } =  req;
     try {
-      const data = await universidadesModel.create({ nombre, carreras, costo, descripcion, rating, website, modalidad, ciudad, departamento, pais });
+      const data = await universidadesModel.create({ name, logo, description, location, rating, programs, tuitionRange, website, modality });
       res.status(201).json(data);
     } catch (error) {
       res.status(500).send(error);
@@ -44,19 +43,18 @@ class universidadesController {
 
   async updateUniversidadById(req, res) {
     const { body:
-      { nombre,
-        carreras,
-        costo,
-        descripcion,
+      { name,
+        logo,
+        description,
+        location,
         rating,
+        programs,
+        tuitionRange,
         website,
-        modalidad,
-        ciudad,
-        departamento,
-        pais },
+        modality },
       params: { id } } =  req;
     try {
-      const data = universidadesModel.updateOne(id, { nombre, carreras, costo, descripcion, rating, website, modalidad, ciudad, departamento, pais });
+      const data = universidadesModel.updateOne(id, { name, logo, description, location, rating, programs, tuitionRange, website, modality });
       res.status(200).json(data);
     } catch (error) {
       res.status(500).send(error);
